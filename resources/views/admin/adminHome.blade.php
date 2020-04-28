@@ -11,42 +11,42 @@
                     <i class="fas fa-users"></i> <a class="ad-active" href="{{route('admin.home')}}">Profile</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="create_course.html">Create Course</a>
+                    <i class="fas fa-users"></i> <a href="{{route('admin.createCourse')}}">Create Course</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="view_course.html">View Course</a>
+                    <i class="fas fa-users"></i> <a href="{{route('admin.viewCourse')}}">View Course</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="approve_student.html">Approve Student</a>
+                    <i class="fas fa-users"></i> <a href="{{route('admin.approveStudent')}}">Approve Student</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="approve_teacher.html">Approve Teacher</a>
+                    <i class="fas fa-users"></i> <a href="{{route('admin.approveTeacher')}}">Approve Teacher</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="student_info.html">Student Info</a>
+                    <i class="fas fa-users"></i> <a href="{{route('admin.viewStudent')}}">Student Info</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="teacher_info.html">Teacher Info</a>
+                    <i class="fas fa-users"></i> <a href="{{route('admin.viewTeacher')}}">Teacher Info</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="notes_upload.html">Notes Upload</a>
+                    <i class="fas fa-users"></i> <a href="{{route('admin.notesUpload')}}">Notes Upload</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="notice_upload.html">Notice Upload</a>
+                    <i class="fas fa-users"></i> <a href="{{route('admin.noticeUpload')}}">Notice Upload</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="marks_entry.html">Create Marks</a>
-                </li>
-
-                <li>
-                    <i class="fas fa-hands-helping"></i> <a href="entry_salary.html">Entry Salary</a>
+                    <i class="fas fa-users"></i> <a href="{{route('admin.marksCreate')}}">Create Marks</a>
                 </li>
 
                 <li>
-                    <i class="fas fa-hands-helping"></i> <a href="view_salary.html">View Salary</a>
+                    <i class="fas fa-hands-helping"></i> <a href="{{route('admin.entrySalary')}}">Entry Salary</a>
+                </li>
+
+                <li>
+                    <i class="fas fa-hands-helping"></i> <a href="{{route('admin.viewSalary')}}">View Salary</a>
                 </li>
                 <li>
-                    <i class="fas fa-hands-helping"></i> <a href="alert_parent.html">Alert Parents</a>
+                    <i class="fas fa-hands-helping"></i> <a href="{{route('admin.alertParent')}}">Alert Parents</a>
                 </li>
             </ul>
         </div>

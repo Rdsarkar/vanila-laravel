@@ -8,10 +8,13 @@
         <div class="sidebar">
             <ul>
                 <li>
-                    <i class="fas fa-users"></i> <a class="ad-active" href="student_dashboard.html"> Std Profile</a>
+                    <i class="fas fa-users"></i> <a class="ad-active" href="{{route('student.home')}}"> Std Profile</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="s_enroll_course.html">Enroll Course</a>
+                    <i class="fas fa-users"></i> <a href="{{route('student.allcourses')}}">All Courses</a>
+                </li>
+                <li>
+                    <i class="fas fa-users"></i> <a href="{{route('student.choosecourses')}}">Enroll Course</a>
                 </li>
                 <li>
                     <i class="fas fa-users"></i> <a href="s_view_course.html">View Course</a>

@@ -4,28 +4,25 @@ namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Model\Course;
+use App\Model\Result;
 use App\Model\Login;
 use App\Model\Registration;
+
 use Validator;
 
-class AdminHomeController extends Controller
+class AdminCreateMarksController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $req)
+    public function index()
     {
-        //dashboard return
-        $id = $req->session()->get('uid');
-        $data = Login::Where('id', $id )->first();
-
-        if($req->session()->has('uname')){
-			return view('admin.adminHome', compact('data'));
-		}else{
-			return redirect()->route('login');
-        }
+        //
+        $data = Course::all();
+        return view('admin.adminCreateMarks', compact('data'));
     }
 
     /**
@@ -36,6 +33,7 @@ class AdminHomeController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -46,7 +44,36 @@ class AdminHomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(), [
+
+			'examType'=>'required',
+			'examName'=>'required',
+			'courseId'=>'required',
+			'userId'=>'required | integer | exists:registrations,id',
+			'marks'=>'required | regex:/^\d+(\.\d{2})?$/',
+        ]);
+
+        if($validation->fails()){
+            return response()->json(['errors'=>$validation->errors()->all()]);
+        }else{
+
+            $check = Login::where('regid', $request->userId)->first();
+
+            if($check->utype == "teacher" | $check->utype == "admin"){
+                return response()->json(['success'=>'The selected user id is invalid']);
+            }
+
+            $data = new Result();
+            $data->examType = $request->examType;
+            $data->examName = $request->examName;
+            $data->cid = $request->courseId;
+            $data->sid = $request->userId;
+            $data->marks= $request->marks;
+            $data->save();
+
+            return response()->json(['success'=>'Record is successfully added']);
+
+        }
     }
 
     /**
@@ -68,11 +95,7 @@ class AdminHomeController extends Controller
      */
     public function edit($id)
     {
-
-        //  $regid = Login::where('id', $id)->first();
-
-        $data =Registration::where('id', $id)->first();
-        return view('admin.adminProfileEdit',compact('data'));
+        //
     }
 
     /**
@@ -85,31 +108,6 @@ class AdminHomeController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $validation = Validator::make($request->all(), [
-			'name'=>'required',
-            'email'=>'required | email | unique:registrations,email,'.$id,
-			'password'=>'required',
-        ]);
-
-        if($validation->fails()){
-			return back()
-					->with('errors', $validation->errors())
-					->withInput();
-        }
-
-        $data = Registration::find($id);
-        $data->name = $request->name;
-        $data->email = $request->email;
-        $data->password = $request->password;
-        $data->save();
-
-        $login =Login::where('regid', $id)->first();
-        $login->uname = $request->name;
-        $login->uemail = $request->email;
-        $login->upassword = $request->password;
-        $login->save();
-
-        return redirect()->route('login');
     }
 
     /**

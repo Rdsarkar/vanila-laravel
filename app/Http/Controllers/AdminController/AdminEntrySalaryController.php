@@ -4,28 +4,30 @@ namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Login;
+use App\Model\Salary;
 use App\Model\Registration;
+use DB;
 use Validator;
 
-class AdminHomeController extends Controller
+class AdminEntrySalaryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $req)
+    public function index()
     {
-        //dashboard return
-        $id = $req->session()->get('uid');
-        $data = Login::Where('id', $id )->first();
+        //
 
-        if($req->session()->has('uname')){
-			return view('admin.adminHome', compact('data'));
-		}else{
-			return redirect()->route('login');
-        }
+        $data=DB::table('registrations')
+        ->join('logins', 'registrations.id', '=', 'logins.regid')
+        ->select('registrations.*', 'logins.utype')
+        ->where('logins.utype','=','teacher')
+        ->where('registrations.salaryStatus','=',NULL)
+        ->get();
+
+        return view('admin.adminEntrySalary', compact('data'));
     }
 
     /**
@@ -36,6 +38,8 @@ class AdminHomeController extends Controller
     public function create()
     {
         //
+        $data = Salary::all();
+        return view('admin.adminViewSalary', compact('data'));
     }
 
     /**
@@ -47,6 +51,28 @@ class AdminHomeController extends Controller
     public function store(Request $request)
     {
         //
+
+        $validation = Validator::make($request->all(), [
+            'userId'=>'required',
+			'amount'=>'required | integer',
+        ]);
+
+        if($validation->fails()){
+			return back()
+					->with('errors', $validation->errors())
+					->withInput();
+        }
+
+        $reg = Registration::find($request->userId);
+        $reg->salaryStatus = 1;
+        $reg->save();
+
+        $data = new Salary();
+        $data->tid =$request->userId;
+        $data->amount =$request->amount;
+        $data->save();
+
+        return redirect()->route('admin.entrySalary');
     }
 
     /**
@@ -68,11 +94,11 @@ class AdminHomeController extends Controller
      */
     public function edit($id)
     {
+        //
 
-        //  $regid = Login::where('id', $id)->first();
+        $data = Salary::where('tid', $id)->first();
+        return view('admin.adminEditSalary', compact('data'));
 
-        $data =Registration::where('id', $id)->first();
-        return view('admin.adminProfileEdit',compact('data'));
     }
 
     /**
@@ -85,10 +111,11 @@ class AdminHomeController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+
         $validation = Validator::make($request->all(), [
-			'name'=>'required',
-            'email'=>'required | email | unique:registrations,email,'.$id,
-			'password'=>'required',
+            'salaryId'=>'required',
+			'amount'=>'required | integer',
         ]);
 
         if($validation->fails()){
@@ -97,19 +124,12 @@ class AdminHomeController extends Controller
 					->withInput();
         }
 
-        $data = Registration::find($id);
-        $data->name = $request->name;
-        $data->email = $request->email;
-        $data->password = $request->password;
+        $data = Salary::find($id);
+        $data->amount =$request->amount;
         $data->save();
+        
+        return redirect()->route('admin.viewSalary');
 
-        $login =Login::where('regid', $id)->first();
-        $login->uname = $request->name;
-        $login->uemail = $request->email;
-        $login->upassword = $request->password;
-        $login->save();
-
-        return redirect()->route('login');
     }
 
     /**

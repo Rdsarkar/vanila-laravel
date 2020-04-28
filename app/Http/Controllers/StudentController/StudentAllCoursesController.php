@@ -1,31 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\AdminController;
+namespace App\Http\Controllers\StudentController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Login;
-use App\Model\Registration;
-use Validator;
 
-class AdminHomeController extends Controller
+use App\Model\Course;
+
+class StudentAllCoursesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $req)
+    public function index()
     {
-        //dashboard return
-        $id = $req->session()->get('uid');
-        $data = Login::Where('id', $id )->first();
-
-        if($req->session()->has('uname')){
-			return view('admin.adminHome', compact('data'));
-		}else{
-			return redirect()->route('login');
-        }
+        //
+        $all= Course::all();
+        return view ('student.studentAllCourses',['all'=>$all] );
     }
 
     /**
@@ -47,6 +40,7 @@ class AdminHomeController extends Controller
     public function store(Request $request)
     {
         //
+        
     }
 
     /**
@@ -68,11 +62,7 @@ class AdminHomeController extends Controller
      */
     public function edit($id)
     {
-
-        //  $regid = Login::where('id', $id)->first();
-
-        $data =Registration::where('id', $id)->first();
-        return view('admin.adminProfileEdit',compact('data'));
+        //
     }
 
     /**
@@ -85,31 +75,6 @@ class AdminHomeController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $validation = Validator::make($request->all(), [
-			'name'=>'required',
-            'email'=>'required | email | unique:registrations,email,'.$id,
-			'password'=>'required',
-        ]);
-
-        if($validation->fails()){
-			return back()
-					->with('errors', $validation->errors())
-					->withInput();
-        }
-
-        $data = Registration::find($id);
-        $data->name = $request->name;
-        $data->email = $request->email;
-        $data->password = $request->password;
-        $data->save();
-
-        $login =Login::where('regid', $id)->first();
-        $login->uname = $request->name;
-        $login->uemail = $request->email;
-        $login->upassword = $request->password;
-        $login->save();
-
-        return redirect()->route('login');
     }
 
     /**

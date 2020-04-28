@@ -4,28 +4,24 @@ namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Login;
-use App\Model\Registration;
+
+use App\Model\Course;
+use App\Model\Note;
+use DB;
 use Validator;
 
-class AdminHomeController extends Controller
+class AdminNotesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $req)
+    public function index()
     {
-        //dashboard return
-        $id = $req->session()->get('uid');
-        $data = Login::Where('id', $id )->first();
-
-        if($req->session()->has('uname')){
-			return view('admin.adminHome', compact('data'));
-		}else{
-			return redirect()->route('login');
-        }
+        //
+        $data = Course::all();
+        return view('admin.adminNotesUpload', compact('data'));
     }
 
     /**
@@ -47,6 +43,44 @@ class AdminHomeController extends Controller
     public function store(Request $request)
     {
         //
+        $validation = Validator::make($request->all(), [
+            'courseId'=>'required',
+            'title' => 'required|max:255',
+            'file'=>'required',
+            'file'=>'mimes:pdf,doc,docx,PDF,DOC,DOCX,zip,ZIP,RAR,rar,txt | max:12000',
+
+        ]);
+
+        if($validation->fails()){
+			return back()
+					->with('errors', $validation->errors())
+					->withInput();
+        }
+
+        $data = new Note();
+        $data->title = $request->title;
+        $data->cid = $request->courseId;
+        $file = $request->file('fileDetails');
+
+        if($file){
+
+            $file_name = hexdec(uniqid());
+            $ext =strtolower($file->getClientOriginalExtension());
+            $full_file_name =$file_name.'.'.$ext;
+            $upload_path ='public/assets/upload/';
+            $file_url = $upload_path.$full_file_name;
+            $success =$file->move($upload_path,$full_file_name);
+            $data->fileName =$file_url;
+
+            //data insert with file 
+            $data->save();
+
+            return redirect()->back();
+        }
+        else{
+            return redirect()->back();
+        }
+
     }
 
     /**
@@ -68,11 +102,7 @@ class AdminHomeController extends Controller
      */
     public function edit($id)
     {
-
-        //  $regid = Login::where('id', $id)->first();
-
-        $data =Registration::where('id', $id)->first();
-        return view('admin.adminProfileEdit',compact('data'));
+        //
     }
 
     /**
@@ -85,31 +115,6 @@ class AdminHomeController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $validation = Validator::make($request->all(), [
-			'name'=>'required',
-            'email'=>'required | email | unique:registrations,email,'.$id,
-			'password'=>'required',
-        ]);
-
-        if($validation->fails()){
-			return back()
-					->with('errors', $validation->errors())
-					->withInput();
-        }
-
-        $data = Registration::find($id);
-        $data->name = $request->name;
-        $data->email = $request->email;
-        $data->password = $request->password;
-        $data->save();
-
-        $login =Login::where('regid', $id)->first();
-        $login->uname = $request->name;
-        $login->uemail = $request->email;
-        $login->upassword = $request->password;
-        $login->save();
-
-        return redirect()->route('login');
     }
 
     /**
