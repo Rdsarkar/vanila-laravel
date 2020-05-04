@@ -4,24 +4,24 @@ namespace App\Http\Controllers\StudentController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use App\Model\Course;
 use App\Model\ChooseCourse;
+use DB;
 
-use Validator;
-
-class StudentChoosecourses extends Controller
+class StudentViewCoursesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         //
-        $all= Course::all();
-        return view('student.studentChoosecourses',['all'=>$all]);
+        
+		$id = $req->session()->get('regid');
+        $data = ChooseCourse::where('uid', $id )->orderBy('cid', 'desc')->get();
+        // $data = DB::table('choose_courses')->where('uid', $id)->orderBy('cid', 'desc')->get();
+        return view('student/studentViewCourse',compact('data'));
     }
 
     /**
@@ -43,22 +43,6 @@ class StudentChoosecourses extends Controller
     public function store(Request $request)
     {
         //
-
-        $id = $request->id;
-        $data = Course::find( $id);
-
-        $choose = new ChooseCourse();
-        $choose->fees = $data->fees;
-        $choose->paid = 0;
-        $choose->cid = $id;
-        $choose->uid = $request->session()->get('regid');
-
-        $choose->save();
-
-         return redirect()->back();
-    
-
-
     }
 
     /**

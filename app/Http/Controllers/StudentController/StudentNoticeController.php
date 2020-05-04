@@ -4,10 +4,9 @@ namespace App\Http\Controllers\StudentController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Model\Notice;
 
-use App\Model\Course;
-
-class StudentAllCoursesController extends Controller
+class StudentNoticeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,8 @@ class StudentAllCoursesController extends Controller
     public function index()
     {
         //
-        $all= Course::where('status',1)->orderBy('id', 'desc')->get();
-        return view ('student.studentAllCourses',['all'=>$all] );
+        $all=Notice::orderBy('id', 'desc')->get();
+        return view('student.studentNotice',['all'=>$all]);
     }
 
     /**
@@ -40,7 +39,6 @@ class StudentAllCoursesController extends Controller
     public function store(Request $request)
     {
         //
-        
     }
 
     /**

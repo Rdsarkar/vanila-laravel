@@ -1,6 +1,6 @@
 @extends('layouts.student')
 
-@section('studentAllcourses')
+@section('studentNotice')
 <section>
     <div id="wrapper">
              <!-- Sidebar -->
@@ -45,30 +45,22 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
-                        <h1 class="mt-5">All Couses</h1>
+                        <h1 class="mt-5">Notice</h1>
                         <div class="container">
                             <div class="row text-center  justify-content-center mr-lg-4">
                                 
                                     <table class="table table-striped">
                                         <thead>
                                           <tr class="table-col">
-                                            <th scope="col">Course ID</th>
-                                            <th scope="col">Course Type</th>
-                                            <th scope="col">Batch</th>
-                                            <th scope="col">Class Time</th>
-                                            <th scope="col">Class Day</th>
-                                            <th scope="col">Fees</th>
+                                            <th scope="col">Topic</th>
+                                            <th scope="col">Details</th>
                                           </tr>
                                         </thead>
                                         @foreach ($all as $allc)
                                         <tbody>
                                         
-                                                <th scope="row">{{$allc['id']}}</th>
-                                                <td>{{$allc['courseType']}}</td>
-                                                <td>{{$allc['batch']}}</td>
-                                                <td>{{$allc['classTime']}}</td>
-                                                <td>{{$allc['classDay']}}</td>
-                                                <td>{{$allc['fees']}}</td>
+                                                <th scope="row">{{$allc['topic']}}</th>                                                
+                                                <td>{{$allc['details']}}</td>                                               
                                             @endforeach
                                           
                                         </tbody>

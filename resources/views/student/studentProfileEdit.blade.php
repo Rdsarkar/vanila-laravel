@@ -17,13 +17,13 @@
                     <i class="fas fa-users"></i> <a href="{{route('student.choosecourses')}}">Enroll Course</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="s_view_course.html">View Course</a>
+                    <i class="fas fa-users"></i> <a href="{{route('student.viewcourses')}}">View Course</a>
                 </li>
                 <li>
                     <i class="fas fa-users"></i> <a href="s_notes.html">Notes Download</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="s_view_notice.html">View Notice</a>
+                    <i class="fas fa-users"></i> <a href="{{route('student.viewnotice')}}">View Notice</a>
                 </li>
                 <li>
                     <i class="fas fa-users"></i> <a href="s_check_results.html">Check Results</a>

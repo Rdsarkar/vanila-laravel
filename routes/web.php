@@ -103,7 +103,7 @@ Route::get('/admin/alertParent', 'AdminController\AdminAlertParentController@ind
 Route::get('/admin/sendMail/{id}', 'AdminController\AdminAlertParentController@show')->name('admin.sendMail');
 Route::post('/admin/sendMail/{id}', 'AdminController\AdminAlertParentController@sendMail')->name('admin.sendMail');
 
-});
+
 
 
 
@@ -113,8 +113,10 @@ Route::get('/student/home', 'StudentController\StudentHomeController@index')->na
 Route::get('/student/profile/edit/{id}', 'StudentController\StudentHomeController@edit')->name('student.profileEdit');
 Route::get('/student/profile/update/{id}', 'StudentController\StudentHomeController@update')->name('student.profileUpdate');
 Route::get('/student/allCourses','StudentController\StudentAllCoursesController@index')->name('student.allcourses');
-Route::get('/student/EnrollCourses', 'StudentController\StudentChoosecourses@index')->name('student.choosecourses');
-Route::post('/student/EnrollCourses', 'StudentController\StudentChoosecourses@store')->name('student.courses.post');
+Route::get('/student/EnrollCourses', 'StudentController\StudentChoosecoursesController@index')->name('student.choosecourses');
+Route::post('/student/EnrollCourses', 'StudentController\StudentChoosecoursesController@store')->name('student.courses.post');
+Route::get('/student/ViewCourses', 'StudentController\StudentViewCoursesController@index')->name('student.viewcourses');
+Route::get('/student/ViewNotice', 'StudentController\StudentNoticeController@index')->name('student.viewnotice');
 
 
 
@@ -122,9 +124,7 @@ Route::post('/student/EnrollCourses', 'StudentController\StudentChoosecourses@st
 
 
 
-
-
-
+});
 
 
 //teacher

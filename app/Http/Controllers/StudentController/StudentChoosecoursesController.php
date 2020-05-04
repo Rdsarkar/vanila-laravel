@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Model\Course;
+use App\Model\ChooseCourse;
 
-class StudentAllCoursesController extends Controller
+use Validator;
+
+class StudentChoosecoursesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +20,8 @@ class StudentAllCoursesController extends Controller
     public function index()
     {
         //
-        $all= Course::where('status',1)->orderBy('id', 'desc')->get();
-        return view ('student.studentAllCourses',['all'=>$all] );
+        $all= Course::all();
+        return view('student.studentChoosecourses',['all'=>$all]);
     }
 
     /**
@@ -40,7 +43,46 @@ class StudentAllCoursesController extends Controller
     public function store(Request $request)
     {
         //
+        // $validation = Validator::make($request->all(),[
+        //      'id'=>'required | ',
+        //     'paid'=>'required | max:$p',
+            
+        // ]);
+
+        //     if($validation->fails()){
+        //         return back()
+        //                 ->with('errors', $validation->errors())
+        //                 ->withInput();
+        //     }
+
+        //     $find = Course::where('uemail', $request->uemail)
+        //         ->where('upassword', $request->upassword)
+        //         ->first();
+
+        // if($find != null){
+
+            $id = $request->id;
+            $data = Course::find( $id);
+
+            $choose = new ChooseCourse();
+            $choose->fees = $data->fees;
+            $choose->paid = $request->paid;
+            $choose->cid = $id;
+            $choose->uid = $request->session()->get('regid');
+
+            $choose->save();
+            // $p = $choose->fees;
+            return redirect()->back();
+    // }
+    //   else{
+    //         $request->session()->flash('msg', 'invalid username/password');
+    //         return redirect()->route('login');
+    //     }
+
         
+    
+
+
     }
 
     /**

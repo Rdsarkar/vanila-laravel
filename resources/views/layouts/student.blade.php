@@ -37,6 +37,8 @@
     @yield('studentProfileEdit')
     @yield('studentAllcourses')
     @yield('studentChoosecourses')
+    @yield('studentViewCourse')
+    @yield('studentNotice')
 
 
     <script src="{{asset('public/assets/js/jquery.js')}}"></script>
