@@ -5,10 +5,11 @@ namespace App\Http\Controllers\StudentController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Model\Course;
-use App\Model\ChooseCourse;
 
 use Validator;
+use App\Model\Course;
+use App\Model\ChooseCourse;
+use App\Model\Login;
 
 class StudentChoosecoursesController extends Controller
 {
@@ -17,9 +18,27 @@ class StudentChoosecoursesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         //
+
+       
+                           
+        
+
+        // $id = $req->session()->get('regid');
+       
+        // $data= ChooseCourse::where('cid',  $req->$cid )
+        //                    ->where('uid', $id )
+        //                    ->get();
+
+        // $all= Course::where('id',  $req->$cid )
+        //             ->get();
+        
+        // $std= Login::where('utype',student)->get();            
+
+        // return view('student.studentChoosecourses',compact('data','all','std'));
+
         $all= Course::all();
         return view('student.studentChoosecourses',['all'=>$all]);
     }
@@ -42,27 +61,22 @@ class StudentChoosecoursesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // $validation = Validator::make($request->all(),[
-        //      'id'=>'required | ',
-        //     'paid'=>'required | max:$p',
-            
-        // ]);
-
-        //     if($validation->fails()){
-        //         return back()
-        //                 ->with('errors', $validation->errors())
-        //                 ->withInput();
-        //     }
-
-        //     $find = Course::where('uemail', $request->uemail)
-        //         ->where('upassword', $request->upassword)
-        //         ->first();
-
-        // if($find != null){
 
             $id = $request->id;
             $data = Course::find( $id);
+            $courseFees =  $data->fees;
+            $val =1000;
+            $validation = Validator::make($request->all(),[
+              'id'=>'required ',
+              'paid'=>"required | gte: 1000, | lte: $courseFees"
+            
+            ]);
+
+            if($validation->fails()){
+                return back()
+                        ->with('errors', $validation->errors())
+                        ->withInput();
+            }
 
             $choose = new ChooseCourse();
             $choose->fees = $data->fees;
@@ -71,16 +85,8 @@ class StudentChoosecoursesController extends Controller
             $choose->uid = $request->session()->get('regid');
 
             $choose->save();
-            // $p = $choose->fees;
+          
             return redirect()->back();
-    // }
-    //   else{
-    //         $request->session()->flash('msg', 'invalid username/password');
-    //         return redirect()->route('login');
-    //     }
-
-        
-    
 
 
     }

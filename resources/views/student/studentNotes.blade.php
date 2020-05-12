@@ -1,6 +1,6 @@
 @extends('layouts.student')
 
-@section('studentAllcourses')
+@section('studentNotes')
 <section>
     <div id="wrapper">
              <!-- Sidebar -->
@@ -41,46 +41,45 @@
             </div>
             <!-- Sidebar -->
 
-        <div id="content-wrapper">
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <h1 class="mt-5">All Couses</h1>
-                        <div class="container">
-                            <div class="row text-center  justify-content-center mr-lg-4">
-                                
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr class="table-col">
-                                        <th scope="col">Course ID</th>
-                                        <th scope="col">Course Type</th>
-                                        <th scope="col">Batch</th>
-                                        <th scope="col">Class Time</th>
-                                        <th scope="col">Class Day</th>
-                                        <th scope="col">Fees</th>
-                                        </tr>
-                                    </thead>
-                                    @foreach ($all as $allc)
-                                    <tbody>
+            <div id="content-wrapper">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <h1 class="mt-5">View Courses</h1>
+                            <div class="container">
+                                <div class="row text-center  justify-content-center mr-lg-4">
                                     
-                                            <th scope="row">{{$allc['id']}}</th>
-                                            <td>{{$allc['courseType']}}</td>
-                                            <td>{{$allc['batch']}}</td>
-                                            <td>{{$allc['classTime']}}</td>
-                                            <td>{{$allc['classDay']}}</td>
-                                            <td>{{$allc['fees']}}</td>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr class="table-col">
+                                            <th scope="col">Serial</th>
+                                            <th scope="col">Notes Title</th>
+                                            <th scope="col">Subject ID</th>
+                                            </tr>
+                                        </thead>
+                                        @foreach ($downloads as $down)   
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">{{$down->id}}</th>
+                                                <td>{{$down->title}} </td>
+                                                <td>{{$down->cid}}</td>
+                                                <td>
+                                                    <a href="{{route('student.notes.show',$down->id)}}">View</a>
+                                                </td>
+                                            </tr>
                                         @endforeach
-                                        
-                                    </tbody>
-                                </table>
-                       
+                                                
+                                        </tbody>
+                                    
+                                    </table>
+                              
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
 
 @endsection
+

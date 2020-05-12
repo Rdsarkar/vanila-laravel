@@ -117,10 +117,9 @@ Route::get('/student/EnrollCourses', 'StudentController\StudentChoosecoursesCont
 Route::post('/student/EnrollCourses', 'StudentController\StudentChoosecoursesController@store')->name('student.courses.post');
 Route::get('/student/ViewCourses', 'StudentController\StudentViewCoursesController@index')->name('student.viewcourses');
 Route::get('/student/ViewNotice', 'StudentController\StudentNoticeController@index')->name('student.viewnotice');
-
-
-
-
+Route::get('/student/ViewResult', 'StudentController\StudentResultController@index')->name('student.viewresult');
+Route::get('/student/ViewNotes', 'StudentController\StudentNoteController@index')->name('student.notes');
+Route::get('/student/download/{id}', 'StudentController\StudentNoteController@show')->name('student.notes.show');
 
 
 

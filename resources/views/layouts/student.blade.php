@@ -39,6 +39,9 @@
     @yield('studentChoosecourses')
     @yield('studentViewCourse')
     @yield('studentNotice')
+    @yield('studentResult')
+    @yield('studentNotes')
+    @yield('studentViewNotes')
 
 
     <script src="{{asset('public/assets/js/jquery.js')}}"></script>

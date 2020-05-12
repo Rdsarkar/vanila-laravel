@@ -137,6 +137,7 @@ return [
         'upassword' => [
                 'required' => 'The password field is required.',
         ],
+        
     ],
 
     /*

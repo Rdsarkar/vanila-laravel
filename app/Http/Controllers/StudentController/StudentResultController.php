@@ -1,27 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\AdminController;
+namespace App\Http\Controllers\StudentController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Model\Result;
 
-use App\Model\Course;
-use App\Model\Note;
-use DB;
-use Validator;
-
-class AdminNotesController extends Controller
+class StudentResultController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         //
-        $data = Course::all();
-        return view('admin.adminNotesUpload', compact('data'));
+        $id = $req->session()->get('regid');
+        $data = Result::where('sid', $id )->orderBy('id', 'desc')->get();
+        return view('student/studentResult',compact('data'));
     }
 
     /**
@@ -43,44 +40,6 @@ class AdminNotesController extends Controller
     public function store(Request $request)
     {
         //
-        $validation = Validator::make($request->all(), [
-            'courseId'=>'required',
-            'title' => 'required|max:255',
-            // 'file'=>'required',
-            'fileDetails'=>'required|mimes:pdf,doc,docx,PDF,DOC,DOCX,zip,ZIP,RAR,rar,txt,png | max:12000',
-
-        ]);
-
-        if($validation->fails()){
-			return back()
-					->with('errors', $validation->errors())
-					->withInput();
-        }
-
-        $data = new Note();
-        $data->title = $request->title;
-        $data->cid = $request->courseId;
-        $file = $request->file('fileDetails');
-
-        if($file){
-
-            $file_name = hexdec(uniqid());
-            $ext =strtolower($file->getClientOriginalExtension());
-            $full_file_name =$file_name.'.'.$ext;
-            $upload_path ='public/assets/upload/';
-            $file_url = $upload_path.$full_file_name;
-            $success =$file->move($upload_path,$full_file_name);
-            $data->fileName =$file_url;
-
-            //data insert with file 
-            $data->save();
-
-            return redirect()->back();
-        }
-        else{
-            return redirect()->back();
-        }
-
     }
 
     /**

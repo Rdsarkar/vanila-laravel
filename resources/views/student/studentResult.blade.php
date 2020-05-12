@@ -1,6 +1,6 @@
 @extends('layouts.student')
 
-    @section('studentViewCourse')     
+    @section('studentResult')     
         <div id="wrapper">
             <!-- Sidebar -->
             <div class="sidebar">
@@ -52,26 +52,25 @@
                                         <thead>
                                             <tr class="table-col">
                                             <th scope="col">Course ID</th>
-                                            <th scope="col">Course Fees</th>
-                                            <th scope="col">Due</th>
+                                            <th scope="col">Exam Name</th>
+                                            <th scope="col">Exam Type</th>
+                                            <th scope="col">Marks</th>
                                             </tr>
                                         </thead>
                                         @foreach ($data as $value)   
                                         <tbody>
                                             <tr>
                                                 <th scope="row">{{$value->cid}}</th>
-                                                <td>{{$value->fees}}</td>
-                                                <td>
-                                                    {{$value->fees - $value->paid}}
-                                                </td>
+                                                <td>{{$value->examName}}</td>
+                                                <td>{{$value->examType}}</td>
+                                                <td>{{$value->marks}}</td>
                                             </tr>
                                         @endforeach
                                                 
                                         </tbody>
                                     
                                     </table>
-
-                                   
+                              
                                 </div>
                             </div>
                         </div>
