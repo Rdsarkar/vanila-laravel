@@ -29,10 +29,7 @@
                     <i class="fas fa-users"></i> <a href="{{route('student.viewresult')}}">Check Results</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="s_msg_send.html">Send Message</a>
-                </li>
-                <li>
-                    <i class="fas fa-users"></i> <a href="s_payment.html">Payment</a>
+                    <i class="fas fa-users"></i> <a href="{{route('student.complaint')}}">Complaint BOX</a>
                 </li>
                 <li>
                     <i class="fas fa-users"></i> <a href="s_pre_course.html">Pre. Course</a>

@@ -110,18 +110,26 @@ Route::post('/admin/sendMail/{id}', 'AdminController\AdminAlertParentController@
 //student
 
 Route::get('/student/home', 'StudentController\StudentHomeController@index')->name('student.home');
+
 Route::get('/student/profile/edit/{id}', 'StudentController\StudentHomeController@edit')->name('student.profileEdit');
 Route::get('/student/profile/update/{id}', 'StudentController\StudentHomeController@update')->name('student.profileUpdate');
+
 Route::get('/student/allCourses','StudentController\StudentAllCoursesController@index')->name('student.allcourses');
+
 Route::get('/student/EnrollCourses', 'StudentController\StudentChoosecoursesController@index')->name('student.choosecourses');
 Route::post('/student/EnrollCourses', 'StudentController\StudentChoosecoursesController@store')->name('student.courses.post');
+
 Route::get('/student/ViewCourses', 'StudentController\StudentViewCoursesController@index')->name('student.viewcourses');
+
 Route::get('/student/ViewNotice', 'StudentController\StudentNoticeController@index')->name('student.viewnotice');
+
 Route::get('/student/ViewResult', 'StudentController\StudentResultController@index')->name('student.viewresult');
+
 Route::get('/student/ViewNotes', 'StudentController\StudentNoteController@index')->name('student.notes');
 Route::get('/student/download/{id}', 'StudentController\StudentNoteController@show')->name('student.notes.show');
 
-
+Route::get('/student/Complaint', 'StudentController\StudentComplaintController@index')->name('student.complaint');
+Route::post('/student/Complaint', 'StudentController\StudentComplaintController@store')->name('student.complaint.post');
 
 });
 

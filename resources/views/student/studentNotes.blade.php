@@ -28,10 +28,7 @@
                         <i class="fas fa-users"></i> <a href="{{route('student.viewresult')}}">Check Results</a>
                     </li>
                     <li>
-                        <i class="fas fa-users"></i> <a href="s_msg_send.html">Send Message</a>
-                    </li>
-                    <li>
-                        <i class="fas fa-users"></i> <a href="s_payment.html">Payment</a>
+                        <i class="fas fa-users"></i> <a href="{{route('student.complaint')}}">Complaint BOX</a>
                     </li>
                     <li>
                         <i class="fas fa-users"></i> <a href="s_pre_course.html">Pre. Course</a>
@@ -45,7 +42,7 @@
                 <div class="container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-lg-6">
-                            <h1 class="mt-5">View Courses</h1>
+                            <h1 class="mt-5">View Notes</h1>
                             <div class="container">
                                 <div class="row text-center  justify-content-center mr-lg-4">
                                     
@@ -54,7 +51,7 @@
                                             <tr class="table-col">
                                             <th scope="col">Serial</th>
                                             <th scope="col">Notes Title</th>
-                                            <th scope="col">Subject ID</th>
+                                            <th scope="col">Course ID</th>
                                             </tr>
                                         </thead>
                                         @foreach ($downloads as $down)   

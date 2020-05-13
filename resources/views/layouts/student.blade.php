@@ -42,6 +42,7 @@
     @yield('studentResult')
     @yield('studentNotes')
     @yield('studentViewNotes')
+    @yield('studentComplaint')
 
 
     <script src="{{asset('public/assets/js/jquery.js')}}"></script>
