@@ -22,7 +22,7 @@
                         <i class="fas fa-users"></i> <a href="{{route('student.notes')}}">Notes Download</a>
                     </li>
                     <li>
-                        <i class="fas fa-users"></i> <a href="{{route('student.viewnotice')}}">View Notice</a>
+                        <i class="fas fa-users"></i> <a class="ad-active" href="{{route('student.viewnotice')}}">View Notice</a>
                     </li>
                     <li>
                         <i class="fas fa-users"></i> <a href="{{route('student.viewresult')}}">Check Results</a>

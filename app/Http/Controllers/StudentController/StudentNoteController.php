@@ -5,6 +5,7 @@ namespace App\Http\Controllers\StudentController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Note;
+use App\Model\ChooseCourse;
 use DB;
 class StudentNoteController extends Controller
 {
@@ -13,11 +14,22 @@ class StudentNoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         //
-        $downloads=DB::table('notes')->orderBy('id', 'desc')->get();
+        $all=array();
+        $uid = $req->session()->get('regid');
+        $data =  ChooseCourse::where('uid', $uid)->get();
+        
+        for ($i=0; $i < count($data) ; $i++) { 
+            $cid = $data[$i]['cid']; 
+            $all[$i] = $cid;
+        }
+        
+        $downloads=DB::table('notes')->whereIn('cid', $all)->orderBy('id', 'desc')->get();
+        
         return view ('student.studentNotes', compact('downloads'));
+        
     }
 
     /**

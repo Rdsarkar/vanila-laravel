@@ -13,7 +13,7 @@
                         <i class="fas fa-users"></i> <a href="{{route('student.allcourses')}}">All Courses</a>
                     </li>
                     <li>
-                        <i class="fas fa-users"></i> <a href="{{route('student.choosecourses')}}">Enroll Course</a>
+                        <i class="fas fa-users"></i> <a class="ad-active" href="{{route('student.choosecourses')}}">Enroll Course</a>
                     </li>
                     <li>
                         <i class="fas fa-users"></i> <a href="{{route('student.viewcourses')}}">View Course</a>
@@ -54,10 +54,10 @@
                                 <div class="form-group mb-3 mt-3">
                                     <label for="SelectBatch" class="font-weight-bold">Select Course ID</label>
                                     <select class="form-control" name="id">
-                                        @foreach ($all as $allc)
+                                        @foreach ($finaldata as $allc)
 
                                         
-                                            <option>{{$allc['id']}}</option>
+                                            <option>{{$allc->id}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -78,15 +78,3 @@
 
 @endsection
 
-
-
-<script>
-     
-     for (let index = 0; index <103; index++) {
-         
-         for (let index2 = 0; index2 < 2; index2++) {
-            
-             
-         }
-     }
-</script>

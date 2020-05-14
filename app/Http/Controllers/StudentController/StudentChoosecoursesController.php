@@ -10,6 +10,7 @@ use Validator;
 use App\Model\Course;
 use App\Model\ChooseCourse;
 use App\Model\Login;
+use DB;
 
 class StudentChoosecoursesController extends Controller
 {
@@ -19,28 +20,23 @@ class StudentChoosecoursesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $req)
-    {
+    {   
         //
+        $all=array();
+
+        $uid = $req->session()->get('regid');
+        $data = ChooseCourse::where('uid', $uid )->get();
+        
+        for ($i=0; $i < count($data) ; $i++) { 
+            $cid = $data[$i]['cid']; 
+            $all[$i] = $cid;
+        }
+
+        $finaldata=DB::table('courses')->whereNotIn('id',  $all)->get();
+        
+        return view('student.studentChoosecourses',compact('finaldata'));
 
        
-                           
-        
-
-        // $id = $req->session()->get('regid');
-       
-        // $data= ChooseCourse::where('cid',  $req->$cid )
-        //                    ->where('uid', $id )
-        //                    ->get();
-
-        // $all= Course::where('id',  $req->$cid )
-        //             ->get();
-        
-        // $std= Login::where('utype',student)->get();            
-
-        // return view('student.studentChoosecourses',compact('data','all','std'));
-
-        $all= Course::all();
-        return view('student.studentChoosecourses',['all'=>$all]);
     }
 
     /**
@@ -61,32 +57,32 @@ class StudentChoosecoursesController extends Controller
      */
     public function store(Request $request)
     {
+        //
+        $id = $request->id;
+        $data = Course::find( $id);
+        $courseFees =  $data->fees;
+        $val =1000;
+        $validation = Validator::make($request->all(),[
+            'id'=>'required',
+            'paid'=>"required | gte: 1000, | lte: $courseFees"
+        
+        ]);
 
-            $id = $request->id;
-            $data = Course::find( $id);
-            $courseFees =  $data->fees;
-            $val =1000;
-            $validation = Validator::make($request->all(),[
-              'id'=>'required ',
-              'paid'=>"required | gte: 1000, | lte: $courseFees"
-            
-            ]);
+        if($validation->fails()){
+            return back()
+                    ->with('errors', $validation->errors())
+                    ->withInput();
+        }
 
-            if($validation->fails()){
-                return back()
-                        ->with('errors', $validation->errors())
-                        ->withInput();
-            }
+        $choose = new ChooseCourse();
+        $choose->fees = $data->fees;
+        $choose->paid = $request->paid;
+        $choose->cid = $id;
+        $choose->uid = $request->session()->get('regid');
 
-            $choose = new ChooseCourse();
-            $choose->fees = $data->fees;
-            $choose->paid = $request->paid;
-            $choose->cid = $id;
-            $choose->uid = $request->session()->get('regid');
-
-            $choose->save();
-          
-            return redirect()->back();
+        $choose->save();
+        
+        return redirect()->back();
 
 
     }

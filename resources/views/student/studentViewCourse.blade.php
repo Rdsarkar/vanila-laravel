@@ -15,7 +15,7 @@
                     <i class="fas fa-users"></i> <a href="{{route('student.choosecourses')}}">Enroll Course</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="{{route('student.viewcourses')}}">View Course</a>
+                    <i class="fas fa-users"></i> <a class="ad-active" href="{{route('student.viewcourses')}}">View Course</a>
                 </li>
                 <li>
                     <i class="fas fa-users"></i> <a href="{{route('student.notes')}}">Notes Download</a>

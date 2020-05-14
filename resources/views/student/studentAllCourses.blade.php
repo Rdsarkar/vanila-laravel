@@ -10,7 +10,7 @@
                         <i class="fas fa-users"></i> <a href="{{route('student.home')}}"> Std Profile</a>
                     </li>
                     <li>
-                        <i class="fas fa-users"></i> <a href="{{route('student.allcourses')}}">All Courses</a>
+                        <i class="fas fa-users"></i> <a class="ad-active" href="{{route('student.allcourses')}}">All Courses</a>
                     </li>
                     <li>
                         <i class="fas fa-users"></i> <a href="{{route('student.choosecourses')}}">Enroll Course</a>

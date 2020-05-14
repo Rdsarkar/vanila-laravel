@@ -24,7 +24,7 @@
                     <i class="fas fa-users"></i> <a href="{{route('student.viewnotice')}}">View Notice</a>
                 </li>
                 <li>
-                    <i class="fas fa-users"></i> <a href="{{route('student.viewresult')}}">Check Results</a>
+                    <i class="fas fa-users"></i> <a class="ad-active" href="{{route('student.viewresult')}}">Check Results</a>
                 </li>
                 <li>
                     <i class="fas fa-users"></i> <a href="{{route('student.complaint')}}">Complaint BOX</a>

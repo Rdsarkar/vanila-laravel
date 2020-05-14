@@ -17,7 +17,6 @@ class StudentViewCoursesController extends Controller
     public function index(Request $req)
     {
         //
-        
 		$id = $req->session()->get('regid');
         $data = ChooseCourse::where('uid', $id )->orderBy('cid', 'desc')->get();
         // $data = DB::table('choose_courses')->where('uid', $id)->orderBy('cid', 'desc')->get();

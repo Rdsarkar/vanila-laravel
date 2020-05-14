@@ -42,7 +42,6 @@ class StudentRegController extends Controller
     public function store(Request $request)
     {
         //
-
         $validation = Validator::make($request->all(), [
             'name'=>'required',
 			'email'=>'required | email |unique:registrations',
