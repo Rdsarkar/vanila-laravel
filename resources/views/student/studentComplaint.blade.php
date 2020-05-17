@@ -30,10 +30,6 @@
                     <li>
                         <i class="fas fa-users"></i> <a class="ad-active" href="{{route('student.complaint')}}">Complaint BOX</a>
                     </li>
-                    <li>
-                        <i class="fas fa-users"></i> <a href="s_pre_course.html">Pre. Course</a>
-                    </li>
-
                 </ul>
             </div>
             <!-- Sidebar -->
